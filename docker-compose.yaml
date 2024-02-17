@@ -1,0 +1,38 @@
+version: "3.1"
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    env_file: .env
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+    networks:
+      - go-app
+
+  redis:
+    image: redis
+    restart: always
+    env_file: .env
+    ports:
+      - 6379:6379
+    expose:
+      - 6379
+    networks:
+      - go-app
+
+  api:
+    build: .
+    env_file: .env
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - go-app
+
+networks:
+  go-app:

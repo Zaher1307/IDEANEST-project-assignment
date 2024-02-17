@@ -14,7 +14,8 @@
 ├── cmd
 │   ├── main.go
 │   ├── middlewares.go
-│   └── handlers.go
+│   ├── handlers.go
+│   └── e2e_test.go
 ├── internal
 │   ├── auth
 │   │   └── auth.go
@@ -38,6 +39,7 @@ Code Architecture follows from the project structure, I started with the idea of
 - `cmd/main.go` : contains the main function of the application that starts a `gin` web server and attatches handlers to endpoints
 - `cmd/middlewares.go` : contains the authentication middleware for protected endpoins and any future middlewares
 - `cmd/handlers.go` : contains handlers code for interfacing with the REST client and refine the http request data to be passed to core application logic.
+- `cmd/e2e_test.go` : contains e2e testing for all endpoints to check behavior of all endpoints of application layer.
 - `internal/auth/auth.go`: contains authentication logic that handles creating/revoking tokens.
 - `internal/business/business.go`: contains core application logic, this is the true API of the application, which can be used by different clients.
 - `internal/types/types.go`: contains types for the core functionality, these types are used all across the application code to keep consistency and to decouple how the application operates on data from how data is stored in whatever backing database, so that when trying to use different database, all application code won't need to change.
@@ -82,12 +84,13 @@ Data entities are straightforward, the application consists of 2 entities:
 ```bash
 $ git clone https://github.com/Zaher1307/IDEANEST-project-assignment.git
 $ cd IDEANEST-project-assignment
-$ docker compose up
+$ docker-compose up
 ```
 
 ### Notes
 
 1. It was not clear that refresh token is to be revoked after a certain amount of time, also the fact that we have a dedicated endpoint to revoke the refresh token made it clear that we don’t want to revoke the refresh token automatically.
+2. Application `testing code` will be run in stage in dockerfile before release stage so if you run `docker-compose up` then the server worked it will be indicator for all tests passed successfully.
 
 **Action**: I assumed that the endpoint “POST /refresh-token” only generates a new access token from a given refresh token.
 

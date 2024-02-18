@@ -86,11 +86,10 @@ $ git clone https://github.com/Zaher1307/IDEANEST-project-assignment.git
 $ cd IDEANEST-project-assignment
 $ docker-compose up
 ```
-
+Application `testing code` will be run in stage in dockerfile before release stage so if you run `docker-compose up` then the server worked it will be indicator for all tests passed successfully.
 ### Notes
 
 1. It was not clear that refresh token is to be revoked after a certain amount of time, also the fact that we have a dedicated endpoint to revoke the refresh token made it clear that we don’t want to revoke the refresh token automatically.
-2. Application `testing code` will be run in stage in dockerfile before release stage so if you run `docker-compose up` then the server worked it will be indicator for all tests passed successfully.
 
 **Action**: I assumed that the endpoint “POST /refresh-token” only generates a new access token from a given refresh token.
 
